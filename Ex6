@@ -1,0 +1,67 @@
+1. Thrashing:
+A state in which the system spends most of its time swapping process pieces rather than executing instructions
+
+Principle of locality:
+Tarvittava tieto löytyy yleensä osoitteista jotka ovat lähellä jo haettua tietoa.
+
+Elements in page table entry: Joka prosessilla oma page table.
+Each page table entry contains the frame number of the
+corresponding page in main memory.
+Page number, Process identifier, Control bits, Chain pointer.
+
+(TLB: special high-speed cache called a translation lookaside buffer (TLB) Sisältää page tableja)
+Cost of TLB miss, cache miss, page fault:
+TLB miss: Etsittäessä pageja haetaan TLB kautta tietoa, jos sitä ei löydy niin joudutaan käymään tavallisen page tablen kautta. Hidasta.
+
+Cache miss: Dataa ei löydy välimuistista joten täytyy hakea keskusmuistista. Hidasta.
+
+Page fault: Tilanne jolloin osoite ei löydy keskusmuisista. Page fault interrupt ja se haetaan. Hidasta.
+
+TLB spatial or temporal locality? Why:
+
+Accomplished by page buffering:
+Päällekirjoitetut paget järjestetään jompaan kumpaan kahdesta listasta. "Vapaiden pagejen lista" josta ne joskus korvataan tai "Muokattujen pagejen lista" josta ne poistetaan ryppäinä. Parantaa suorituskykyä ja mahdollistaa yksinkertaisemmat korvauspolitiikat.
+
+Resident set vs working set:
+Resident set: Portion of process that is in main memory.
+Working set: Työskenneltävän ikkunan koon määrittelemä pagejoukko.
+
+Why _add_ segment address and displacement but _concatenate_ page frame number and displacement?
+Pageilla concatenate, (liitos) pysyy offset samana.
+
+
+2. 32-bit virtual, 24-bit physical. Page size 4kb
+a)Page table entries? 2^32/2^12 = 2^20
+b)Inverted table entries?
+c)Two level?
+
+3.a) LRU vs Clock.
+0, 1, 2, 0, 3. LRU korvaa 1 koska 0 on kutsuttu kahdesti. Clock korvaa 0 ja asettaa 1 ja 2 bitit 0 tilaan.
+
+b)???
+
+4. 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2
+a) FIFO
+7, 70, 701, F201,201,F231,F230,F430,F420,F423,F023,023,023
+b) LRU
+7, 70, 701, F201,201,F203,203,F403,F402,F432,F032,032,032
+c) Clock
+7, 70, 701, F201,201,F301,301,F304,F204,F234,F230,230,230
+d) Optimal
+7, 70, 701, F201,201,F203,203,F243,243,243,F203,203,203
+
+5.
+
+
+6.PFF:
+Minkä ongelman PFF ratkaisee: Working setin koko vastaamaan tarvittavaa.
+PFF fixed vai variable allocation policy? Variable, koska tarvittava määrä muuttuu varmaan. Local scope, ei pärjää hyvin jos vaihdetaan sijaintia.
+
+Miten PFF arvioi working setin? Kasvattaa sitä jos tulee huteja lyhyellä aikavälillä ja pienentää jos huteja tulee todella pitkällä aikavälillä
+
+Miten PFF käyttäytyy kun vaihdetaan uuteen localityyn? Huonosti koska page faulttien määrä kasvaa hetkellisesti.
+
+Mitä käy jos raja F on liian pieni? Working settejä pienennetään tarpeettomasti. Jos liian suuri niin niitä suurennetaan liikaa.
+
+Miksi olisi hyvä olla kaksi rajaa?
+Koska absoluuttinen raja suurentamiselle ja pienentämiselle vaatii enemmän töitä. Jos yläraja on pienempi kuin alaraja niin saadaan väliin alue jonka sisälle osuessa ei tehdä muutoksia.

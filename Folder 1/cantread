@@ -1,0 +1,13 @@
+•  memory becomes more and more fragmented
+•  memory utilization declines
+
+reference to a memory location independent of the 
+current assignment
+of data to memory
+
+•  actual location
+
+a page is written out to secondary memory only when it has been selected for
+replacemen
+
+allows the writing of  pages in batches
