@@ -107,6 +107,6 @@ public class VarastoTest {
         varasto.lisaaVarastoon(4);
         varasto.otaVarastosta(200);
         //Määrän pitäisi olla tasan 0
-        assertEquals(0.0,varasto.getSaldo(), vertailuTarkkuus);
+        assertEquals(3.0,varasto.getSaldo(), vertailuTarkkuus);
     }
 }
