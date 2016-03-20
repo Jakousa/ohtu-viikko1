@@ -97,6 +97,8 @@ public class VarastoTest {
     public void ottoMaaraVirhe() {
         varasto.lisaaVarastoon(4);
         varasto.otaVarastosta(-3);
+        
+        //Määrän ei pitäisi muuttua
         assertEquals(4,varasto.getSaldo(),vertailuTarkkuus);
     }
     
@@ -104,6 +106,7 @@ public class VarastoTest {
     public void otetaanEnemmanKuinOn() {
         varasto.lisaaVarastoon(4);
         varasto.otaVarastosta(200);
+        //Määrän pitäisi olla tasan 0
         assertEquals(0.0,varasto.getSaldo(), vertailuTarkkuus);
     }
 }
