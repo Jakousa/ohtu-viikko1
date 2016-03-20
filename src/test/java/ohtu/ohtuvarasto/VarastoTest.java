@@ -75,4 +75,35 @@ public class VarastoTest {
         varasto = new Varasto(-1,-1);
         varasto.toString();
     }
+    
+    @Test
+    public void lisaamisMaaraVirhe() {
+        varasto.lisaaVarastoon(4);
+        varasto.lisaaVarastoon(-1.0);
+        
+        //Määrän ei pitäisi muuttua
+        assertEquals(4, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void lisataanEnemmanKuinMahtuu() {
+        varasto.lisaaVarastoon(200);
+        
+        //Varaston pitäisi vain tulla täyteen
+        assertEquals(varasto.getTilavuus() ,varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void ottoMaaraVirhe() {
+        varasto.lisaaVarastoon(4);
+        varasto.otaVarastosta(-3);
+        assertEquals(4,varasto.getSaldo(),vertailuTarkkuus);
+    }
+    
+    @Test
+    public void otetaanEnemmanKuinOn() {
+        varasto.lisaaVarastoon(4);
+        varasto.otaVarastosta(200);
+        assertEquals(0.0,varasto.getSaldo(), vertailuTarkkuus);
+    }
 }
